@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
+import { SignInFailure, signInStart, signInSucess } from "../redux/user/userSlice";
+
 
 function signIn() {
   const [formData, setFormData] = useState({});
-  const [error, setError] = useState(null);
+  const {error, loading} = useSelector((state)=>state.user)
   const [eye, setEye] = useState(false);
   const [eyeclosed, setEyeClosed] = useState(true);
-  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
   const handleChange = (e) => {
@@ -19,7 +22,7 @@ function signIn() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      setLoading(true);
+      dispatch(signInStart())
       const res = await fetch("/api/auth/signin", {
         method: "POST",
         headers: {
@@ -29,18 +32,15 @@ function signIn() {
       });
       const data = await res.json();
       if (data.success === false) {
-        setLoading(false);
-        setError(data.message);
-        return;
+        dispatch(SignInFailure(data.message))
+      return;
       }
-      setLoading(false);
-      setError(null);
-    
+     dispatch(signInSucess(data))
+
       navigate("/");
-      console.log(data)
+      console.log(data);
     } catch (error) {
-      setLoading(false);
-      setError(error.message);
+      dispatch(SignInFailure(data.message))
     }
   };
 
@@ -53,28 +53,30 @@ function signIn() {
     <div className="p-3  max-w-lg mx-auto">
       <h1 className="text-3xl text-center font-semibold my-7">Sign In</h1>
       <form className="flex flex-col gap-3 " onSubmit={handleSubmit}>
-        
         <input
           type="email"
           placeholder="Email"
           id="email"
           className="border p-3 rounded-lg"
           onChange={handleChange}
+          required
         />
-        
 
-<div className="  bg-white flex items-center cursor-pointer">
-<input
-          type={eye ? "password" : "text"}
-          placeholder="Enter Password"
-          id="password"
-          className=" p-3 rounded-lg w-full"
-          onChange={handleChange}
-        />
-        {eye ? <FaEye className="m-3  font-semibold  " onClick={handleEye}/> : <FaEyeSlash className="m-3  font-semibold  " onClick={handleEye}/>}
-        
-
-          </div>
+        <div className="  bg-white flex items-center cursor-pointer">
+          <input
+            type={eye ? "password" : "text"}
+            placeholder="Enter Password"
+            id="password"
+            className=" p-3 rounded-lg w-full"
+            onChange={handleChange}
+            required
+          />
+          {eye ? (
+            <FaEye className="m-3  font-semibold  " onClick={handleEye} />
+          ) : (
+            <FaEyeSlash className="m-3  font-semibold  " onClick={handleEye} />
+          )}
+        </div>
 
         <button
           disabled={loading}

@@ -51,6 +51,7 @@ function SignUp() {
           id="username"
           className="border p-3 rounded-lg"
           onChange={handleChange}
+          required
         />
         <input
           type="email"
@@ -58,6 +59,7 @@ function SignUp() {
           id="email"
           className="border p-3 rounded-lg"
           onChange={handleChange}
+          required
         />
         <input
           type="password"
@@ -65,6 +67,7 @@ function SignUp() {
           id="password"
           className="border p-3 rounded-lg"
           onChange={handleChange}
+          required
         />
         <button disabled={loading} className="bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-70">
           {loading ? 'Loading...':'Sign Up'}
