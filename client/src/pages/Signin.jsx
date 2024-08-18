@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { SignInFailure, signInStart, signInSucess } from "../redux/user/userSlice";
+import OAuth from "../Components/OAuth";
 
 
 function signIn() {
@@ -84,6 +85,7 @@ function signIn() {
         >
           {loading ? "Loading..." : "Sign In"}
         </button>
+        <OAuth/>
       </form>
       <div className="mt-4 flex gap-2">
         <p>Don't have an Account ? </p>{" "}
