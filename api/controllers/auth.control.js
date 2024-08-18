@@ -61,7 +61,7 @@ export const googleSignUp = async (req, res, next) => {
           Math.random().toString(36).slice(-3),
         password: hashedPassword,
         email: req.body.email,
-        avatar: req.body.photO,
+        avatar: req.body.photo,
       });
       newUser.save();
         const token = jwt.sign({ id: newUser._id }, process.env.JWT_WEBTOKEN);
