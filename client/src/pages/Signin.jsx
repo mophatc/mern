@@ -9,9 +9,12 @@ import OAuth from "../Components/OAuth";
 function signIn() {
   const [formData, setFormData] = useState({});
   const {error, loading} = useSelector((state)=>state.user)
+  // const {loading, setLoading} = useState(false);
+  // const {error, setError} = useState(null)
   const [eye, setEye] = useState(false);
   const [eyeclosed, setEyeClosed] = useState(true);
   const dispatch = useDispatch();
+ 
 
   const navigate = useNavigate();
   const handleChange = (e) => {
@@ -34,12 +37,13 @@ function signIn() {
       const data = await res.json();
       if (data.success === false) {
         dispatch(SignInFailure(data.message))
+       
       return;
       }
      dispatch(signInSucess(data))
 
       navigate("/");
-      console.log(data);
+      
     } catch (error) {
       dispatch(SignInFailure(data.message))
     }

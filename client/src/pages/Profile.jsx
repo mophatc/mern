@@ -45,7 +45,21 @@ export default function Profile() {
     );
    
   };
-console.log(formData)
+
+
+const handleChange = (event)=>{
+  setFormData({
+    ...formData, 
+    [event.target.id] : event.target.value
+  })
+
+  
+}
+
+const handleUpdate =  (e)=>{
+  e.preventDefault();
+  console.log ( formData)
+}
   return (
     <div className=' p-2 max-w-lg mx-auto '>
       <h1 className='my-7 text-center text-3xl font-semibold'>Profile</h1> 
@@ -69,10 +83,10 @@ console.log(formData)
 
       )}
       </p>
-    <input type="text"  id="username" placeholder='Username' className='mt-3 border p-3 rounded-lg' />
-    <input type="email"  id="email" placeholder='Email' className='mt-3 border p-3 rounded-lg' />
-    <input type="password"  id="password" placeholder='Password' className='mt-3 border p-3 rounded-lg' />
-    <button  className='bg-slate-700 text-white rounded-full p-3 uppercase hover:opacity-95 disabled:opacity-80'>Upate </button>
+    <input type="text"  id="username" placeholder='Username' className='mt-3 border p-3 rounded-lg' onChange={handleChange}/>
+    <input type="email"  id="email" placeholder='Email' className='mt-3 border p-3 rounded-lg' onChange={handleChange}/>
+    <input type="password"  id="password" placeholder='Password' className='mt-3 border p-3 rounded-lg' onChange={handleChange} />
+    <button  className='bg-slate-700 text-white rounded-full p-3 uppercase hover:opacity-95 disabled:opacity-80' onClick={handleUpdate}>Upate </button>
 
       </form>
 
