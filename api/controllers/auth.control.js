@@ -80,3 +80,15 @@ export const googleSignUp = async (req, res, next) => {
     next(error);
   }
 };
+
+export const signOut = (req, res, next)=>{
+
+  try {
+    res.clearCookie('mophatToken');
+    res.status(200).json('You have logged Out Your Account Successfully')
+
+    
+  } catch (error) {
+    next(error)
+  }
+}
