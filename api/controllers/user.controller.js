@@ -37,3 +37,16 @@ export const updateUserInfo =  async (req,res, next)=>{
         }
 
 }
+
+export const deleteUser = async (req, res, next)=>{
+if (req.user.id!== req.params.id)return next(errorHandler(401, 'You can only Delete Your Own ACCOUNT'))
+    try {
+
+        await User.findByIdAndDelete(req.params.id)
+        res.clearCookie('mophatToken')
+        res.status(200).json({message:'Your Account has been deleted Successfully'})
+        
+    } catch (error) {
+        next(error)
+    }
+}
