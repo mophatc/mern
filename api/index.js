@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 dotenv.config();
 import userRouter from "../api/routes/user.route.js";
 import authRouter from "../api/routes/auth.route.js";
+import  productRouter  from "./routes/product.route.js";
 
 if (mongoose.connect(process.env.MONGO)) {
   console.log("connected");
@@ -23,6 +24,7 @@ app.listen(PORT, () => {
 
 app.use("/api/user", userRouter);
 app.use("/api/auth", authRouter);
+app.use("/api/product", productRouter);
 
 
 app.use((err, req, res, next)=>{
