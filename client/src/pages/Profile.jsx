@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import {Link } from 'react-router-dom'
 import { useSelector } from "react-redux";
 import { useRef, useEffect } from "react";
 import {
@@ -211,7 +212,10 @@ export default function Profile() {
         >
           {loading || uploading ? "Loading... " : "update "}
         </button>
+
+        <Link to={"/createProduct"} className="hover:opacity-70 bg-green-700 text-white p-3 rounded-full text-center uppercase "> Create Product</Link>
       </form>
+
 
       <div className="flex justify-between mt-3">
         <span
